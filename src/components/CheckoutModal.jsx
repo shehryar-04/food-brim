@@ -68,7 +68,7 @@ export default function CheckoutModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeCheckout}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 cursor-pointer"
+            className="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 cursor-pointer"
           />
 
           {/* Modal Container */}
@@ -79,19 +79,19 @@ export default function CheckoutModal() {
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
           >
-            <div className="bg-[#1C1917] border border-stone-850 w-full max-w-lg rounded-3xl shadow-2xl pointer-events-auto overflow-hidden max-h-[90vh] flex flex-col text-stone-100">
+            <div className="bg-[#F5F1E6] border border-stone-300 w-full max-w-lg rounded-3xl shadow-2xl pointer-events-auto overflow-hidden max-h-[90vh] flex flex-col text-stone-900">
               
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-stone-800/60 bg-stone-900/10">
+              <div className="flex items-center justify-between p-6 border-b border-stone-300 bg-white">
                 <div>
-                  <h2 className="text-stone-100 font-serif font-black text-2xl">Delivery Details</h2>
-                  <p className="text-stone-400 text-xs mt-0.5 font-medium">
+                  <h2 className="text-[#1E5B3C] font-serif font-black text-2xl">Delivery Details</h2>
+                  <p className="text-stone-500 text-xs mt-0.5 font-medium">
                     {items.length} dishes · {siteConfig.currency}{total.toFixed(0)} total
                   </p>
                 </div>
                 <button
                   onClick={closeCheckout}
-                  className="text-stone-400 hover:text-white w-8 h-8 flex items-center justify-center hover:bg-stone-800 rounded-lg transition-colors"
+                  className="text-stone-500 hover:text-stone-900 w-8 h-8 flex items-center justify-center hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -107,97 +107,97 @@ export default function CheckoutModal() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl p-4"
+                      className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl p-4"
                     >
-                      <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-red-400 text-sm font-semibold">{apiError}</p>
+                      <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-red-700 text-sm font-semibold">{apiError}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
                 {/* Name */}
                 <div>
-                  <label className="text-stone-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <User className="w-3.5 h-3.5 text-orange-500" /> Full Name
+                  <label className="text-stone-700 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <User className="w-3.5 h-3.5 text-[#1E5B3C]" /> Full Name
                   </label>
                   <input
                     type="text"
                     placeholder="Enter your name"
                     value={form.name}
                     onChange={(e) => update("name", e.target.value)}
-                    className={`w-full bg-stone-900 border rounded-xl px-4 py-3 text-stone-100 placeholder-stone-600 text-sm outline-none focus:border-orange-500 transition-colors ${
-                      errors.name ? "border-red-600" : "border-stone-800"
+                    className={`w-full bg-white border rounded-xl px-4 py-3 text-stone-900 placeholder-stone-400 text-sm outline-none focus:border-[#1E5B3C] transition-colors shadow-xs ${
+                      errors.name ? "border-red-500" : "border-stone-300"
                     }`}
                   />
-                  {errors.name && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.name}</p>}
+                  {errors.name && <p className="text-red-600 text-xs mt-1.5 font-semibold">{errors.name}</p>}
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className="text-stone-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-orange-500" /> Phone Number
+                  <label className="text-stone-700 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <Phone className="w-3.5 h-3.5 text-[#1E5B3C]" /> Phone Number
                   </label>
                   <input
                     type="tel"
                     placeholder="e.g. +92 300 1234567"
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
-                    className={`w-full bg-stone-900 border rounded-xl px-4 py-3 text-stone-100 placeholder-stone-600 text-sm outline-none focus:border-orange-500 transition-colors ${
-                      errors.phone ? "border-red-600" : "border-stone-800"
+                    className={`w-full bg-white border rounded-xl px-4 py-3 text-stone-900 placeholder-stone-400 text-sm outline-none focus:border-[#1E5B3C] transition-colors shadow-xs ${
+                      errors.phone ? "border-red-500" : "border-stone-300"
                     }`}
                   />
-                  {errors.phone && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.phone}</p>}
+                  {errors.phone && <p className="text-red-600 text-xs mt-1.5 font-semibold">{errors.phone}</p>}
                 </div>
 
                 {/* Address */}
                 <div>
-                  <label className="text-stone-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-orange-500" /> Delivery Address
+                  <label className="text-stone-700 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-[#1E5B3C]" /> Delivery Address
                   </label>
                   <textarea
                     placeholder="Complete address (apartment, block, street, area)"
                     value={form.address}
                     onChange={(e) => update("address", e.target.value)}
                     rows={2}
-                    className={`w-full bg-stone-900 border rounded-xl px-4 py-3 text-stone-100 placeholder-stone-600 text-sm outline-none focus:border-orange-500 transition-colors resize-none ${
-                      errors.address ? "border-red-600" : "border-stone-800"
+                    className={`w-full bg-white border rounded-xl px-4 py-3 text-stone-900 placeholder-stone-400 text-sm outline-none focus:border-[#1E5B3C] transition-colors resize-none shadow-xs ${
+                      errors.address ? "border-red-500" : "border-stone-300"
                     }`}
                   />
-                  {errors.address && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.address}</p>}
+                  {errors.address && <p className="text-red-600 text-xs mt-1.5 font-semibold">{errors.address}</p>}
                 </div>
 
                 {/* Special Instructions */}
                 <div>
-                  <label className="text-stone-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <MessageSquare className="w-3.5 h-3.5 text-orange-500" /> Delivery Notes (Optional)
+                  <label className="text-stone-700 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <MessageSquare className="w-3.5 h-3.5 text-[#1E5B3C]" /> Delivery Notes (Optional)
                   </label>
                   <textarea
                     placeholder="e.g. Leave at gate, bring change for Rs. 2000, call before arrival"
                     value={form.notes}
                     onChange={(e) => update("notes", e.target.value)}
                     rows={2}
-                    className="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 placeholder-stone-600 text-sm outline-none focus:border-orange-500 transition-colors resize-none"
+                    className="w-full bg-white border border-stone-300 rounded-xl px-4 py-3 text-stone-900 placeholder-stone-400 text-sm outline-none focus:border-[#1E5B3C] transition-colors resize-none shadow-xs"
                   />
                 </div>
 
                 {/* Order Summary Recap */}
-                <div className="bg-stone-900 border border-stone-800/80 rounded-2xl p-5 space-y-2.5">
-                  <span className="text-[10px] font-black tracking-widest text-stone-500 uppercase block mb-1">Your Order</span>
+                <div className="bg-white border border-stone-300 rounded-2xl p-5 space-y-2.5 shadow-sm">
+                  <span className="text-[10px] font-black tracking-widest text-[#A46A3A] uppercase block mb-1">Your Order</span>
                   {items.map((item) => (
                     <div key={item.id} className="flex justify-between text-xs font-semibold">
-                      <span className="text-stone-400">
+                      <span className="text-stone-700">
                         {item.name} × {item.quantity}
                       </span>
-                      <span className="text-stone-200">
+                      <span className="text-stone-900 font-bold">
                         {siteConfig.currency}
                         {(item.price * item.quantity).toFixed(0)}
                       </span>
                     </div>
                   ))}
-                  <div className="h-px bg-stone-800/80 my-2" />
+                  <div className="h-px bg-stone-200 my-2" />
                   <div className="flex justify-between font-bold items-center text-sm">
-                    <span className="text-stone-300 font-serif font-black">Estimated Total</span>
-                    <span className="text-orange-500 font-black text-base">
+                    <span className="text-stone-700 font-serif font-black">Estimated Total</span>
+                    <span className="text-[#1E5B3C] font-black text-base">
                       {siteConfig.currency}
                       {total.toFixed(0)}
                     </span>
@@ -210,7 +210,7 @@ export default function CheckoutModal() {
                   disabled={loading}
                   whileHover={!loading ? { scale: 1.02 } : {}}
                   whileTap={!loading ? { scale: 0.98 } : {}}
-                  className="w-full py-4 bg-orange-600 hover:bg-orange-700 text-stone-100 rounded-2xl font-bold text-base shadow-lg shadow-orange-950/20 disabled:opacity-75"
+                  className="w-full py-4 bg-[#1E5B3C] hover:bg-[#16442c] text-[#F5F1E6] rounded-2xl font-bold text-base shadow-lg shadow-[#1E5B3C]/25 disabled:opacity-75 cursor-pointer"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center gap-3">

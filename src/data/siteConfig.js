@@ -1,16 +1,16 @@
 export const siteConfig = {
   name: "Food Brim",
   tagline: "Filled to the Brim with Homemade Goodness",
-  description: "Discover convenience without compromise. Our premium frozen snacks, crunchy momos, and aromatic slow-cooked desi meals are prepared fresh, packed with care, and delivered hot.",
+  description: "Discover convenience without compromise. Our premium snacks, momos, and authentic slow-cooked desi meals are prepared fresh, packed with care, and delivered hot.",
   
   // Ordering Configuration
-  whatsappNumber: "+923001234567", // Format: +[CountryCode][Number] without spaces or special characters
-  phone: "+92 300 1234567",
+  whatsappNumber: "+923019399097", // Pakistan country code +92 (0301-9399097)
+  phone: "+92 301 9399097",
   email: "orders@foodbrim.com",
   
   // Location & Hours
-  address: "Plot 42-C, Khayaban-e-Ittehad, Phase 6, DHA, Karachi, Pakistan",
-  googleMapsPlaceholderUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.5794553258525!2d67.0620353!3d24.8103738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQ4JzM3LjMiTiA2N8KwMDMnNDMuMyJF!5e0!3m2!1sen!2s!4v1629890000000!5m2!1sen!2s",
+  address: "291, Kamran Block, Allama Iqbal Town, Lahore, Pakistan",
+  googleMapsPlaceholderUrl: "https://maps.google.com/maps?q=291+Kamran+Block+Allama+Iqbal+Town+Lahore&t=&z=15&ie=UTF8&iwloc=&output=embed",
   openingHours: "Monday - Sunday: 12:00 PM - 11:30 PM",
   
   // Financials

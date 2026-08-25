@@ -63,11 +63,11 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? "py-2 px-4 md:px-8 bg-[#0C0A09]/90 border-b border-stone-800/40 backdrop-blur-xl shadow-lg" 
-          : "py-4 px-4 md:px-8 bg-transparent"
+          ? "py-3 px-4 md:px-8 bg-[#F5F1E6]/85 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-stone-900" 
+          : "py-5 px-4 md:px-8 bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -79,10 +79,10 @@ export default function Navbar() {
           <img 
             src={logoSquare} 
             alt="Food Brim Logo" 
-            className="w-10 h-10 rounded-full border-2 border-orange-500 object-cover transition-transform group-hover:scale-105"
+            className="w-10 h-10 rounded-full object-cover shadow-sm transition-transform duration-300 group-hover:scale-105"
           />
-          <span className="text-xl font-serif font-black tracking-tight text-stone-100">
-            Food<span className="text-orange-500">Brim</span>
+          <span className="text-xl font-serif font-black tracking-tight text-[#1E5B3C]">
+            Food<span className="text-[#A46A3A]">Brim</span>
           </span>
         </div>
 
@@ -93,7 +93,7 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={(e) => handleScrollTo(e, link.href)}
-              className="text-stone-300 hover:text-orange-500 text-sm font-semibold tracking-wide transition-colors duration-200"
+              className="text-stone-700 hover:text-[#1E5B3C] text-sm font-semibold tracking-wide transition-colors duration-200"
             >
               {link.name}
             </a>
@@ -105,11 +105,11 @@ export default function Navbar() {
           {/* Cart Button */}
           <motion.button
             onClick={openCart}
-            className="relative flex items-center gap-2 bg-[#FAF8F2] border border-stone-700 hover:border-orange-500 text-stone-900 px-4 py-2 rounded-xl font-bold text-xs md:text-sm transition-all duration-200"
+            className="relative flex items-center gap-2 bg-white/90 hover:bg-white text-stone-900 px-4 py-2 rounded-xl font-bold text-xs md:text-sm shadow-sm hover:shadow-md backdrop-blur-sm transition-all duration-200 cursor-pointer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
-            <ShoppingCart className="w-4 h-4 text-orange-500" />
+            <ShoppingCart className="w-4 h-4 text-[#1E5B3C]" />
             <span className="hidden sm:block">Your Order</span>
             <AnimatePresence>
               {totalItems > 0 && (
@@ -118,7 +118,7 @@ export default function Navbar() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
-                  className="absolute -top-2 -right-2 bg-orange-600 text-white text-xs font-black rounded-full w-5 h-5 flex items-center justify-center shadow-md border border-[#FAF8F2]"
+                  className="absolute -top-2 -right-2 bg-[#1E5B3C] text-[#F5F1E6] text-xs font-black rounded-full w-5 h-5 flex items-center justify-center shadow-md"
                 >
                   {totalItems}
                 </motion.span>
@@ -129,7 +129,7 @@ export default function Navbar() {
           {/* Desktop WhatsApp CTA */}
           <motion.button
             onClick={handleWhatsAppClick}
-            className="hidden md:flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-stone-100 px-5 py-2 rounded-xl font-bold text-sm shadow-md shadow-orange-950/20 transition-all"
+            className="hidden md:flex items-center gap-2 bg-[#1E5B3C] hover:bg-[#16442c] text-[#F5F1E6] px-5 py-2 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -145,7 +145,7 @@ export default function Navbar() {
 
           {/* Compact Menu Button (Mobile) */}
           <button
-            className="md:hidden text-stone-100 hover:text-orange-500 transition-colors p-1"
+            className="md:hidden text-stone-800 hover:text-[#1E5B3C] transition-colors p-1 cursor-pointer"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -160,14 +160,14 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-3 bg-[#0C0A09] border border-stone-800 rounded-2xl p-6 flex flex-col gap-5 md:hidden shadow-xl"
+            className="mt-3 bg-[#F5F1E6]/95 backdrop-blur-2xl rounded-3xl p-6 flex flex-col gap-4 md:hidden shadow-2xl"
           >
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleScrollTo(e, link.href)}
-                className="text-stone-300 hover:text-orange-500 text-sm font-semibold tracking-wide py-1 border-b border-stone-900/50"
+                className="text-stone-800 hover:text-[#1E5B3C] text-sm font-semibold tracking-wide py-2"
               >
                 {link.name}
               </a>
@@ -176,7 +176,7 @@ export default function Navbar() {
             {/* Mobile WhatsApp CTA */}
             <motion.button
               onClick={handleWhatsAppClick}
-              className="flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-stone-100 py-3 rounded-xl font-bold text-sm shadow-md transition-all mt-2"
+              className="flex items-center justify-center gap-2 bg-[#1E5B3C] hover:bg-[#16442c] text-[#F5F1E6] py-3.5 rounded-2xl font-bold text-sm shadow-md transition-all mt-2"
               whileTap={{ scale: 0.97 }}
             >
               <svg 
