@@ -79,8 +79,8 @@ export default function ProductCard({ item, index }) {
         {/* Content Body */}
         <div className="flex flex-col flex-1 p-6 z-10">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] font-bold tracking-wider text-[#A46A3A] uppercase">
-              {item.category.replace("_", " ")}
+            <span className="text-[10px] font-black tracking-wider text-[#A46A3A] uppercase bg-[#A46A3A]/10 px-2.5 py-0.5 rounded-full">
+              {item.category_name || item.category.replace("brim_", "Brim ").replace("_", " ")}
             </span>
             <div className="flex items-center gap-1">
               <Star className="w-3.5 h-3.5 fill-yellow-500 text-yellow-500" />
@@ -89,15 +89,31 @@ export default function ProductCard({ item, index }) {
             </div>
           </div>
 
-          <h3 className="text-stone-900 font-serif font-bold text-lg leading-snug mb-2 group-hover:text-[#1E5B3C] transition-colors duration-200">
+          <h3 className="text-stone-900 font-serif font-bold text-lg leading-snug mb-1.5 group-hover:text-[#1E5B3C] transition-colors duration-200">
             {item.name}
           </h3>
+
+          {/* Serving Sizes Guide Indicator */}
+          {(item.pack_size || item.serves) && (
+            <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] font-semibold text-stone-600">
+              {item.pack_size && (
+                <span className="bg-stone-100/90 text-stone-700 px-2.5 py-1 rounded-lg">
+                  📦 {item.pack_size}
+                </span>
+              )}
+              {item.serves && (
+                <span className="bg-[#1E5B3C]/10 text-[#1E5B3C] px-2.5 py-1 rounded-lg font-bold">
+                  👥 {item.serves}
+                </span>
+              )}
+            </div>
+          )}
 
           <p className="text-stone-600 text-xs leading-relaxed flex-1 mb-5 line-clamp-2 font-medium">
             {item.description}
           </p>
 
-          <div className="flex items-center justify-between mt-auto pt-3">
+          <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
             <span className="text-stone-900 font-serif font-black text-xl">
               {siteConfig.currency}
               {item.price}
@@ -168,7 +184,7 @@ export default function ProductCard({ item, index }) {
 
                   <div className="absolute bottom-4 left-6 z-20">
                     <span className="text-[10px] font-bold tracking-widest text-[#F5F1E6] uppercase bg-[#1E5B3C] px-3 py-1 rounded-full shadow-md">
-                      {item.category}
+                      {item.category_name || item.category.replace("_", " ")}
                     </span>
                   </div>
                 </div>
@@ -185,8 +201,27 @@ export default function ProductCard({ item, index }) {
                         <span className="text-stone-800">{item.rating}</span>
                         <span className="text-stone-500">({item.reviews} reviews)</span>
                       </div>
-                      <span className="text-stone-300">|</span>
-                      <span className="text-stone-700">{item.portion}</span>
+                    </div>
+                  </div>
+
+                  {/* Serving Guide Box */}
+                  <div className="bg-white/90 p-4 rounded-2xl border border-stone-200/80 space-y-2">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#A46A3A]">
+                      Serving Sizes Guide
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      {item.pack_size && (
+                        <div className="bg-stone-50 p-2.5 rounded-xl">
+                          <span className="text-stone-500 block text-[10px] uppercase font-bold">Pack / Serving Size</span>
+                          <span className="text-stone-900 font-bold">{item.pack_size}</span>
+                        </div>
+                      )}
+                      {item.serves && (
+                        <div className="bg-stone-50 p-2.5 rounded-xl">
+                          <span className="text-stone-500 block text-[10px] uppercase font-bold">Serves</span>
+                          <span className="text-[#1E5B3C] font-bold">{item.serves}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -229,6 +264,7 @@ export default function ProductCard({ item, index }) {
                     )}
                   </div>
                 </div>
+
 
                 {/* Footer Drawer controls */}
                 <div className="p-6 md:p-8 bg-white/80 backdrop-blur-md flex flex-col sm:flex-row items-center gap-4">

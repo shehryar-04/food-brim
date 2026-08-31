@@ -26,13 +26,19 @@ function SkeletonCard() {
 }
 
 const categoryTitles = {
-  all: "All Dishes",
-  biryani: "Fragrant Biryani",
-  rice: "Aromatic Rice Selection",
-  chicken: "Tantalising Chicken Meals",
-  sides: "Savouries & Gourmet Sides",
-  drinks: "Cool & Refreshing Beverages",
-  combos: "Brim Feasting Boxes",
+  all: "All Homemade Goodness",
+  brim_frozen: "Brim Frozen · Ready to Cook",
+  brim_bites: "Brim Bites · Snacks & Momos",
+  brim_desi: "Brim Desi · Ready to Eat",
+  brim_meetha: "Brim Meetha · Sweet Treats",
+};
+
+const categoryDescriptions = {
+  all: "From freezer favourites to slow-cooked desi meals and sweet treats",
+  brim_frozen: "Crispy samosas, rolls, stuffed parathas & melt-in-mouth shami kababs",
+  brim_bites: "Classic steamed, tandoori & kurkure momos with loaded cheesy fries",
+  brim_desi: "Authentic Hyderabadi chicken biryani, slow-cooked nihari, royal haleem & saag",
+  brim_meetha: "Maa k hath ki kheer, fruit delights & fudgy chocolate brownies",
 };
 
 export default function ProductGrid({ activeCategory, searchQuery, menuItems, loading, error }) {
@@ -51,11 +57,12 @@ export default function ProductGrid({ activeCategory, searchQuery, menuItems, lo
   });
 
   const displayTitle = categoryTitles[activeCategory] ?? activeCategory;
+  const displaySubtitle = categoryDescriptions[activeCategory] || `Displaying ${filtered.length} culinary creations`;
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12" id="menu">
       {/* Section Header */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
         <div>
           <motion.h2
             key={activeCategory}
@@ -66,9 +73,10 @@ export default function ProductGrid({ activeCategory, searchQuery, menuItems, lo
             {displayTitle}
           </motion.h2>
           <p className="text-stone-600 text-xs md:text-sm mt-1.5 font-semibold">
-            {loading ? "Loading gourmet menu…" : `Displaying ${filtered.length} culinary creations`}
+            {loading ? "Loading menu…" : displaySubtitle}
           </p>
         </div>
+
 
         {/* Live Order Open Badge */}
         {!loading && (
