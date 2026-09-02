@@ -32,6 +32,12 @@ export default function ProductCard({ item, index }) {
         <img
           src={item.image}
           alt={item.name}
+          loading="lazy"
+          onError={(e) => {
+            if (item.fallbackImage && e.currentTarget.src !== item.fallbackImage) {
+              e.currentTarget.src = item.fallbackImage;
+            }
+          }}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
 

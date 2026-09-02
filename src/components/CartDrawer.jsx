@@ -90,6 +90,12 @@ export default function CartDrawer() {
                       <img
                         src={item.image}
                         alt={item.name}
+                        loading="lazy"
+                        onError={(e) => {
+                          if (item.fallbackImage && e.currentTarget.src !== item.fallbackImage) {
+                            e.currentTarget.src = item.fallbackImage;
+                          }
+                        }}
                         className="w-12 h-12 rounded-xl object-cover flex-shrink-0 shadow-sm border border-stone-200"
                       />
 
