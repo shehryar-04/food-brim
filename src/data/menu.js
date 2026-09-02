@@ -15,7 +15,7 @@ export const itemImages = {
   1: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80", // Chicken Samosa
   2: "https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=800&q=80", // Chicken Rolls
   3: "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80", // Chicken Paratha
-  4: "https://media.istockphoto.com/id/1684030050/photo/shami-kabab-traditional-indian-and-pakistani-food.jpg?s=1024x1024&w=is&k=20&c=lwtgQRGkACNFRIKePkNVHEEiRB9FUClrKoQPnVUajdU=", // Shami Kabab
+  4: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80", // Shami Kabab
 
   // Brim Bites
   5: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=800&q=80", // Classic Spicy Chicken Momos
