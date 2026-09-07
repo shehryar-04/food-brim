@@ -1,13 +1,22 @@
 import { motion } from "framer-motion";
+import {
+  Flame,
+  Sparkles,
+  CookingPot,
+  Leaf,
+  Truck,
+  ChefHat,
+  UtensilsCrossed,
+} from "lucide-react";
 
-const items = [
-  "🔥 STEAMED DUM BIRYANI",
-  "🌶️ HAND-GROUND MASALAS",
-  "🍚 2-YEAR AGED BASMATI",
-  "🌿 100% HOMEMADE RECIPES",
-  "🛵 25-MIN HOT DELIVERY",
-  "🍲 FILLED TO THE BRIM",
-  "✨ ZERO COMPROMISES",
+const marqueeItems = [
+  { label: "STEAMED DUM BIRYANI", Icon: Flame, color: "text-[#F77737]" },
+  { label: "HAND-GROUND MASALAS", Icon: UtensilsCrossed, color: "text-[#E5B25D]" },
+  { label: "2-YEAR AGED BASMATI", Icon: ChefHat, color: "text-[#F5F1E6]" },
+  { label: "100% HOMEMADE RECIPES", Icon: Leaf, color: "text-[#86efac]" },
+  { label: "25-MIN HOT DELIVERY", Icon: Truck, color: "text-[#E5B25D]" },
+  { label: "FILLED TO THE BRIM", Icon: CookingPot, color: "text-[#F5F1E6]" },
+  { label: "ZERO COMPROMISES", Icon: Sparkles, color: "text-[#E5B25D]" },
 ];
 
 export default function FoodMarquee({ prefersReducedMotion = false }) {
@@ -26,12 +35,18 @@ export default function FoodMarquee({ prefersReducedMotion = false }) {
           className="flex items-center gap-8 whitespace-nowrap text-xs md:text-sm font-bold tracking-widest uppercase"
         >
           {/* Double array for seamless loop */}
-          {[...items, ...items, ...items, ...items].map((text, i) => (
-            <span key={i} className="flex items-center gap-8">
-              <span>{text}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A46A3A]" />
-            </span>
-          ))}
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => {
+            const Icon = item.Icon;
+            return (
+              <span key={i} className="flex items-center gap-8">
+                <span className="inline-flex items-center gap-2">
+                  <Icon className={`w-4 h-4 ${item.color} flex-shrink-0`} />
+                  <span>{item.label}</span>
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A46A3A]" />
+              </span>
+            );
+          })}
         </motion.div>
       </div>
     </div>

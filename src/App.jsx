@@ -22,8 +22,25 @@ import { createGenericWhatsAppMessage } from "./utils/whatsapp";
 // Brand Asset imports
 import logoSquare from "./assets/brand/logo-square.jpg";
 import foodPortrait from "./assets/food/food-2.jpg";
-import foodSquare from "./assets/food/food-1.jpg";
-import deliveryBoxPhoto from "./assets/food/food-3.jpg";
+
+function InstagramIcon({ className = "w-6 h-6", ...props }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
 
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -106,13 +123,6 @@ export default function App() {
       desc: "Filled to the brim. Packed in custom heat-lock insulated packaging for peak fresh delivery.",
       tag: "Brim Feasts"
     },
-  ];
-
-  const galleryItems = [
-    foodPortrait,
-    foodSquare,
-    foodPortrait,
-    deliveryBoxPhoto,
   ];
 
   return (
@@ -357,46 +367,67 @@ export default function App() {
         </section>
 
         {/* ── Instagram Section ───────────────────────────────────────── */}
-        <section className="py-24 bg-gradient-to-b from-transparent via-white/40 to-transparent">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4 text-center sm:text-left">
-              <div>
-                <span className="text-[#A46A3A] text-xs font-bold uppercase tracking-widest block">Social Media</span>
-                <h2 className="text-2xl md:text-3xl font-serif font-black text-[#1E5B3C] mt-1">
-                  On the Gram @foodbrim
-                </h2>
-              </div>
-              <motion.a
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                href={siteConfig.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-[#1E5B3C] hover:bg-[#16442c] text-[#F5F1E6] text-xs font-bold uppercase tracking-widest px-7 py-3.5 rounded-2xl transition-all shadow-md cursor-pointer"
-              >
-                Follow Food Brim
-              </motion.a>
-            </div>
+        <section className="py-20 bg-gradient-to-b from-transparent via-stone-100/60 to-transparent">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1E5B3C] via-[#16442c] to-[#0f2e1e] p-8 md:p-12 text-[#F5F1E6] shadow-xl border border-[#1E5B3C]/40">
+              {/* Decorative background glows */}
+              <div className="absolute -right-16 -top-16 w-64 h-64 bg-gradient-to-br from-[#E1306C]/30 via-[#F77737]/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#C19A5B]/15 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-              {galleryItems.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -6 }}
-                  className="relative group h-64 bg-stone-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
-                >
-                  <img
-                    src={item}
-                    alt={`Food Brim Instagram Showcase ${idx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
-                  />
-                  <div className="absolute inset-0 bg-[#1E5B3C]/80 opacity-0 group-hover:opacity-100 z-10 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                    <span className="text-[#F5F1E6] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md border border-white/20">
-                      View Post
-                    </span>
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#405DE6] p-0.5 shadow-lg flex-shrink-0">
+                    <div className="w-full h-full bg-[#1E5B3C] rounded-2xl flex items-center justify-center">
+                      <InstagramIcon className="w-8 h-8 text-[#F5F1E6]" />
+                    </div>
                   </div>
-                </motion.div>
-              ))}
+                  <div>
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                      <span className="text-[#E5B25D] text-xs font-bold uppercase tracking-widest">
+                        Official Socials
+                      </span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E5B25D]" />
+                      <span className="text-white/60 text-xs font-mono">Instagram</span>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-serif font-black tracking-tight text-white">
+                      Follow @foodbrimofficial
+                    </h2>
+                    <p className="text-[#F5F1E6]/80 text-sm max-w-lg mt-2 leading-relaxed">
+                      Catch daily kitchen reels, fresh batch announcements, behind-the-scenes preparation, and exclusive deals.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-3 flex-shrink-0">
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={siteConfig.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-2xl shadow-lg hover:shadow-2xl transition-all cursor-pointer"
+                  >
+                    <InstagramIcon className="w-4 h-4" />
+                    Visit Instagram
+                  </motion.a>
+                </div>
+              </div>
+
+              {/* Highlights pills */}
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 text-xs text-white/90 font-medium">
+                <div className="flex items-center justify-center sm:justify-start gap-2.5">
+                  <Sparkles className="w-4 h-4 text-[#E5B25D] flex-shrink-0" />
+                  <span>Fresh Daily Batch Stories</span>
+                </div>
+                <div className="flex items-center justify-center sm:justify-start gap-2.5">
+                  <Flame className="w-4 h-4 text-[#F77737] flex-shrink-0" />
+                  <span>Behind-the-Scenes Cooking</span>
+                </div>
+                <div className="flex items-center justify-center sm:justify-start gap-2.5">
+                  <Award className="w-4 h-4 text-[#E5B25D] flex-shrink-0" />
+                  <span>Exclusive Deals & Giveaways</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>

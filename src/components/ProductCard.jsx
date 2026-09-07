@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Star, Plus, Check, Flame } from "lucide-react";
+import { Star, Plus, Check, Flame, Package, Users } from "lucide-react";
 import useCartStore from "../store/cartStore";
 import { siteConfig } from "../data/siteConfig";
 
@@ -91,13 +91,15 @@ export default function ProductCard({ item, index }) {
         {(item.pack_size || item.serves) && (
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] font-semibold text-stone-600">
             {item.pack_size && (
-              <span className="bg-stone-100/90 text-stone-700 px-2.5 py-1 rounded-lg">
-                📦 {item.pack_size}
+              <span className="inline-flex items-center gap-1.5 bg-stone-100/90 text-stone-700 px-2.5 py-1 rounded-lg">
+                <Package className="w-3.5 h-3.5 text-stone-500" />
+                <span>{item.pack_size}</span>
               </span>
             )}
             {item.serves && (
-              <span className="bg-[#1E5B3C]/10 text-[#1E5B3C] px-2.5 py-1 rounded-lg font-bold">
-                👥 {item.serves}
+              <span className="inline-flex items-center gap-1.5 bg-[#1E5B3C]/10 text-[#1E5B3C] px-2.5 py-1 rounded-lg font-bold">
+                <Users className="w-3.5 h-3.5 text-[#1E5B3C]" />
+                <span>{item.serves}</span>
               </span>
             )}
           </div>
