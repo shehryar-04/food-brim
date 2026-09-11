@@ -4,8 +4,8 @@ export const siteConfig = {
   description: "Discover convenience without compromise. Our premium snacks, momos, and authentic slow-cooked desi meals are prepared fresh, packed with care, and delivered hot.",
 
   // Ordering Configuration
-  whatsappNumber: "+923019399097", // Pakistan country code +92 (0301-9399097)
-  phone: "+92 301 9399097",
+  whatsappNumber: "+923264940041", // Pakistan country code +92 (0326-4940041)
+  phone: "+92 326 4940041",
   email: "orders@foodbrim.com",
 
   // Location & Hours

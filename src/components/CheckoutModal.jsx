@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, MapPin, Phone, User, MessageSquare, AlertCircle } from "lucide-react";
+import { X, MapPin, Phone, User, MessageSquare, AlertCircle, Clock, ChefHat, Flame, Snowflake } from "lucide-react";
 import { useState } from "react";
 import useCartStore from "../store/cartStore";
 import { siteConfig } from "../data/siteConfig";
@@ -201,6 +201,35 @@ export default function CheckoutModal() {
                       {siteConfig.currency}
                       {total.toFixed(0)}
                     </span>
+                  </div>
+                </div>
+
+                {/* Fresh Cooking & Delivery Advisory */}
+                <div className="bg-[#1E5B3C]/5 border border-[#1E5B3C]/20 rounded-2xl p-4 space-y-2.5">
+                  <div className="flex items-center gap-2 text-[#1E5B3C]">
+                    <ChefHat className="w-4 h-4 text-[#1E5B3C] flex-shrink-0" />
+                    <span className="text-xs font-bold uppercase tracking-wider">
+                      Cooked 100% Fresh to Order
+                    </span>
+                  </div>
+                  <p className="text-stone-700 text-xs leading-relaxed font-medium">
+                    Because we do not pre-prepare dishes and cook everything fresh, please note our estimated delivery times:
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="bg-white p-2.5 rounded-xl border border-stone-200 shadow-xs">
+                      <div className="flex items-center gap-1 text-stone-700 font-bold text-[10px] uppercase">
+                        <Flame className="w-3 h-3 text-amber-600" /> Fresh Food
+                      </div>
+                      <span className="text-[#1E5B3C] font-black text-xs block mt-0.5">~4 Hours Delivery</span>
+                      <span className="text-stone-500 text-[10px] font-medium block mt-0.5">Kindly order 3–4 hrs ahead</span>
+                    </div>
+                    <div className="bg-white p-2.5 rounded-xl border border-stone-200 shadow-xs">
+                      <div className="flex items-center gap-1 text-stone-700 font-bold text-[10px] uppercase">
+                        <Snowflake className="w-3 h-3 text-sky-600" /> Frozen Items
+                      </div>
+                      <span className="text-[#A46A3A] font-black text-xs block mt-0.5">~1 Day Delivery</span>
+                      <span className="text-stone-500 text-[10px] font-medium block mt-0.5">Blast-chilled pack</span>
+                    </div>
                   </div>
                 </div>
 

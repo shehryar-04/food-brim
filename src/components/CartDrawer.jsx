@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, Package } from "lucide-react";
+import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, Package, Clock } from "lucide-react";
 import useCartStore from "../store/cartStore";
 import { siteConfig } from "../data/siteConfig";
 
@@ -156,6 +156,13 @@ export default function CartDrawer() {
                       {delivery.toFixed(0)}
                     </span>
                   </div>
+                  <div className="flex items-start gap-2 bg-[#1E5B3C]/5 border border-[#1E5B3C]/20 rounded-xl p-3 text-[11px] text-stone-700">
+                    <Clock className="w-4 h-4 text-[#1E5B3C] flex-shrink-0 mt-0.5" />
+                    <span className="leading-snug">
+                      <strong className="text-[#1E5B3C] font-bold">Cooked Fresh to Order:</strong> Kindly order <strong>3–4 hrs</strong> ahead for fresh meals (1 day for frozen items).
+                    </span>
+                  </div>
+
                   <div className="h-px bg-stone-200 my-2" />
                   <div className="flex justify-between items-center">
                     <span className="text-[#1E5B3C] font-serif font-black text-lg">Total</span>

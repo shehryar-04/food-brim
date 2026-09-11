@@ -75,9 +75,17 @@ const useCartStore = create((set, get) => ({
     const randomNum = Math.floor(100000 + Math.random() * 900000);
     const orderId = `FB-${randomNum}`;
 
+    // Check for fresh vs frozen items in the order
+    const hasFrozen = items.some(
+      (item) => item.category === "brim_frozen" || item.category_id === "brim_frozen" || item.tags?.includes("Frozen")
+    );
+    const hasFresh = items.some(
+      (item) => item.category !== "brim_frozen" && item.category_id !== "brim_frozen" && !item.tags?.includes("Frozen")
+    );
+
     try {
       // 1. Generate the WhatsApp Order Link
-      const whatsappUrl = createWhatsAppOrder(items, { ...formData, orderId }, siteConfig);
+      const whatsappUrl = createWhatsAppOrder(items, { ...formData, orderId, hasFrozen, hasFresh }, siteConfig);
 
       // 2. Open WhatsApp in a new tab
       window.open(whatsappUrl, "_blank");
@@ -85,7 +93,7 @@ const useCartStore = create((set, get) => ({
       // 3. Update local state
       set({
         orderPlaced:    true,
-        orderDetails:   { ...formData, total },
+        orderDetails:   { ...formData, total, subtotal, items: [...items], hasFrozen, hasFresh },
         orderId:        orderId,
         isCheckoutOpen: false,
         items:          [], // Empty the cart

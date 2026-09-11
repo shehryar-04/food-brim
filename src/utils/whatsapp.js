@@ -39,6 +39,16 @@ export function createWhatsAppOrder(items, formData, siteConfig) {
     msg += `*Special Instructions*:\n_${formData.notes.trim()}_\n\n`;
   }
 
+  msg += `*Estimated Delivery Time*:\n`;
+  if (formData.hasFrozen && !formData.hasFresh) {
+    msg += `• Frozen Food: ~1 Day\n`;
+  } else if (formData.hasFresh && !formData.hasFrozen) {
+    msg += `• Fresh Food: ~4 Hours (Cooked fresh to order)\n`;
+  } else {
+    msg += `• Fresh Food: ~4 Hours | Frozen Food: ~1 Day\n`;
+  }
+  msg += `_Note: Because we cook everything fresh from scratch and do not pre-prepare dishes, orders are prepared upon confirmation._\n\n`;
+
   msg += `Please confirm my order. Thank you!`;
 
   return getWhatsAppURL(msg, siteConfig.whatsappNumber);

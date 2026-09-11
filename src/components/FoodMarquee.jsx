@@ -14,7 +14,7 @@ const marqueeItems = [
   { label: "HAND-GROUND MASALAS", Icon: UtensilsCrossed, color: "text-[#E5B25D]" },
   { label: "2-YEAR AGED BASMATI", Icon: ChefHat, color: "text-[#F5F1E6]" },
   { label: "100% HOMEMADE RECIPES", Icon: Leaf, color: "text-[#86efac]" },
-  { label: "25-MIN HOT DELIVERY", Icon: Truck, color: "text-[#E5B25D]" },
+  { label: "100% COOKED FRESH TO ORDER", Icon: ChefHat, color: "text-[#E5B25D]" },
   { label: "FILLED TO THE BRIM", Icon: CookingPot, color: "text-[#F5F1E6]" },
   { label: "ZERO COMPROMISES", Icon: Sparkles, color: "text-[#E5B25D]" },
 ];

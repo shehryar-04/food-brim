@@ -13,7 +13,7 @@ import { useMenu } from "./hooks/useMenu";
 import {
   Search, MapPin, Phone, Clock, MessageSquare,
   Star, Heart, Flame, ShieldCheck, Sparkles, MessageCircle, ChevronRight,
-  Award, CheckCircle2
+  Award, CheckCircle2, ChefHat, Snowflake
 } from "lucide-react";
 import { siteConfig } from "./data/siteConfig";
 import { testimonials } from "./data/testimonials";
@@ -151,8 +151,43 @@ export default function App() {
         {/* ── Dynamic Brand Marquee Banner ── */}
         <FoodMarquee prefersReducedMotion={prefersReducedMotion} />
 
+        {/* ── Fresh Cooking & Advance Order Notice Banner ── */}
+        <div className="max-w-7xl mx-auto px-4 pt-10">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-[#1E5B3C]/10 via-white/80 to-[#A46A3A]/10 border border-[#1E5B3C]/20 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-5 backdrop-blur-sm"
+          >
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#1E5B3C] text-[#F5F1E6] flex items-center justify-center flex-shrink-0 shadow-md">
+                <ChefHat className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-[#1E5B3C] font-serif font-black text-base md:text-lg flex items-center gap-2">
+                  100% Freshly Cooked to Order
+                </h3>
+                <p className="text-stone-700 text-xs md:text-sm font-medium mt-0.5 leading-relaxed">
+                  We do not pre-prepare dishes — everything is cooked from scratch upon receiving your order. Kindly order <strong>3–4 hours before</strong> you expect your food.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 w-full md:w-auto flex-shrink-0">
+              <div className="flex-1 md:flex-initial bg-white border border-[#1E5B3C]/20 rounded-2xl px-4 py-2.5 text-center shadow-xs">
+                <span className="text-stone-500 text-[10px] font-bold uppercase tracking-wider block">Fresh Food</span>
+                <span className="text-[#1E5B3C] text-xs font-black">~4 Hours Delivery</span>
+              </div>
+              <div className="flex-1 md:flex-initial bg-white border border-[#A46A3A]/20 rounded-2xl px-4 py-2.5 text-center shadow-xs">
+                <span className="text-stone-500 text-[10px] font-bold uppercase tracking-wider block">Frozen Items</span>
+                <span className="text-[#A46A3A] text-xs font-black">~1 Day Delivery</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
         {/* ── Search Bar Section ────────────────────────────────────────── */}
-        <div className="max-w-7xl mx-auto px-4 pt-16 pb-4">
+        <div className="max-w-7xl mx-auto px-4 pt-8 pb-4">
           <div className="relative max-w-lg mx-auto md:mx-0">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
             <input
@@ -221,8 +256,8 @@ export default function App() {
                 <div className="flex items-start gap-3 bg-white/70 p-4 rounded-2xl shadow-xs">
                   <CheckCircle2 className="w-5 h-5 text-[#1E5B3C] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-stone-900 font-bold text-sm">25-Min Delivery</h4>
-                    <p className="text-stone-600 text-xs mt-0.5 font-medium">Straight to your doorstep hot</p>
+                    <h4 className="text-stone-900 font-bold text-sm">Cooked Fresh to Order</h4>
+                    <p className="text-stone-600 text-xs mt-0.5 font-medium">3–4 hrs lead time (1 day frozen)</p>
                   </div>
                 </div>
               </div>

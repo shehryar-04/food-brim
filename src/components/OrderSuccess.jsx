@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 import {
   CheckCircle2, Clock, Home, Phone, ChevronRight,
-  Star, Sparkles, Flame, UtensilsCrossed, ChefHat, Bike, Package,
+  Star, Sparkles, Flame, UtensilsCrossed, ChefHat, Snowflake, MessageCircle, AlertCircle
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import useCartStore from "../store/cartStore";
 import { siteConfig } from "../data/siteConfig";
+import { getWhatsAppURL } from "../utils/whatsapp";
 
-const confettiIcons = [Star, Sparkles, Flame, UtensilsCrossed, ChefHat, Package];
+const confettiIcons = [Star, Sparkles, Flame, UtensilsCrossed, ChefHat, Snowflake];
 const confettiColors = [
-  "text-orange-500", "text-yellow-500", "text-amber-600",
-  "text-red-500", "text-orange-600", "text-stone-300",
+  "text-[#1E5B3C]", "text-[#A46A3A]", "text-amber-500",
+  "text-emerald-500", "text-[#C59B27]", "text-stone-300",
 ];
 
 function ConfettiPiece({ IconComponent, color, style }) {
@@ -33,35 +34,8 @@ function ConfettiPiece({ IconComponent, color, style }) {
   );
 }
 
-const STATUS_ORDER = ["confirmed", "preparing", "on_the_way", "delivered"];
-
-const orderSteps = [
-  { key: "confirmed",  label: "Confirmed",  Icon: CheckCircle2 },
-  { key: "preparing",  label: "Preparing",  Icon: ChefHat },
-  { key: "on_the_way", label: "On the way", Icon: Bike },
-  { key: "delivered",  label: "Delivered",  Icon: Home },
-];
-
 export default function OrderSuccess() {
   const { orderDetails, orderId, resetOrder } = useCartStore();
-
-  const [status, setStatus] = useState("confirmed");
-  const [eta] = useState(() => `${25 + Math.floor(Math.random() * 15)} mins`);
-
-  // Simulate order status updates client-side for visual realism
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index < STATUS_ORDER.length - 1) {
-        index++;
-        setStatus(STATUS_ORDER[index]);
-      } else {
-        clearInterval(interval);
-      }
-    }, 15000); // Progress every 15 seconds
-
-    return () => clearInterval(interval);
-  }, []);
 
   const confetti = useRef(
     Array.from({ length: 25 }, (_, i) => ({
@@ -72,166 +46,190 @@ export default function OrderSuccess() {
     }))
   ).current;
 
-  const currentStatusIndex = STATUS_ORDER.indexOf(status);
+  const directWhatsAppUrl = getWhatsAppURL(
+    `Hello ${siteConfig.name}, I am following up on my order #${orderId || "FB-Order"}.`,
+    siteConfig.whatsappNumber
+  );
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 bg-[#0C0A09] z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
     >
       {/* Confetti */}
       {confetti.map((c) => (
         <ConfettiPiece key={c.id} IconComponent={c.IconComponent} color={c.color} style={c.style} />
       ))}
 
-      {/* Glow */}
+      {/* Ambient Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.03, 0.08, 0.03] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.16, 0.08] }}
+          transition={{ duration: 5, repeat: Infinity }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#1E5B3C]/30 rounded-full blur-3xl"
         />
       </div>
 
       <motion.div
-        initial={{ scale: 0.8, y: 40, opacity: 0 }}
+        initial={{ scale: 0.85, y: 30, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }}
-        className="relative z-10 bg-[#1C1917] border border-stone-800 rounded-3xl p-8 max-w-md w-full text-center shadow-2xl text-stone-100"
+        transition={{ type: "spring", stiffness: 260, damping: 22, delay: 0.15 }}
+        className="relative z-10 bg-[#F5F1E6] border border-stone-300 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl text-stone-900 my-auto"
       >
-        {/* Success icon */}
+        {/* Success icon badge */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.4 }}
-          className="w-20 h-20 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-600/20"
+          transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.3 }}
+          className="w-18 h-18 sm:w-20 sm:h-20 bg-gradient-to-br from-[#1E5B3C] to-[#143e29] rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl shadow-[#1E5B3C]/25 text-white"
         >
-          <CheckCircle2 className="w-10 h-10 text-stone-100" />
+          <CheckCircle2 className="w-10 h-10 text-[#F5F1E6]" />
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-          <h2 className="text-stone-100 font-serif font-black text-3xl mb-2 flex items-center justify-center gap-2">
-            Order Sent! <Sparkles className="w-7 h-7 text-orange-500" />
+        {/* Title */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+          <h2 className="text-[#1E5B3C] font-serif font-black text-2xl sm:text-3xl mb-1.5 flex items-center justify-center gap-2">
+            Order Sent via WhatsApp! <Sparkles className="w-6 h-6 text-[#A46A3A]" />
           </h2>
-          <p className="text-stone-400 text-sm mb-6 font-medium">
-            Your WhatsApp order was built and sent. We will confirm your delivery shortly.
+          <p className="text-stone-600 text-xs sm:text-sm mb-5 font-medium leading-relaxed">
+            Your order details have been forwarded to our kitchen. We will review and confirm your order on WhatsApp shortly.
           </p>
         </motion.div>
 
-        {/* Realtime status pill */}
+        {/* Order details summary */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="flex items-center justify-center gap-2 mb-6"
-        >
-          <div className="flex items-center gap-1.5 bg-orange-950/40 border border-orange-900/30 rounded-full px-4 py-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
-            </span>
-            <span className="text-orange-500 text-xs font-bold uppercase tracking-wider">Simulated Tracking Active</span>
-          </div>
-        </motion.div>
-
-        {/* Order details */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="bg-stone-900 border border-stone-800 rounded-2xl p-5 mb-6 space-y-3.5 text-left"
+          transition={{ delay: 0.5 }}
+          className="bg-white border border-stone-300 rounded-2xl p-4 sm:p-5 mb-5 space-y-3 text-left shadow-xs"
         >
-          <div className="flex items-center justify-between">
-            <span className="text-stone-500 text-sm font-semibold">Order Reference</span>
-            <span className="text-orange-500 font-black text-sm">#{orderId || "FB-12948"}</span>
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <span className="text-stone-500 font-semibold">Order Reference</span>
+            <span className="text-[#1E5B3C] font-black font-mono">#{orderId || "FB-102938"}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-stone-500 text-sm font-semibold flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-orange-500" /> Estimated ETA
+
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <span className="text-stone-500 font-semibold flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-[#1E5B3C]" /> Estimated Delivery
             </span>
-            <span className="text-stone-200 font-bold text-sm">{eta}</span>
+            <span className="text-[#1E5B3C] font-black">
+              {orderDetails?.hasFrozen && !orderDetails?.hasFresh
+                ? "1 Day (Frozen Food)"
+                : orderDetails?.hasFresh && !orderDetails?.hasFrozen
+                ? "4 Hours (Cooked Fresh)"
+                : "4 Hours (Fresh) · 1 Day (Frozen)"}
+            </span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-stone-500 text-sm font-semibold flex items-center gap-1.5">
-              <Home className="w-3.5 h-3.5 text-orange-500" /> Delivering To
+
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <span className="text-stone-500 font-semibold flex items-center gap-1.5">
+              <Home className="w-3.5 h-3.5 text-[#1E5B3C]" /> Delivering To
             </span>
-            <span className="text-stone-200 text-sm font-bold max-w-[180px] truncate text-right">
-              {orderDetails?.address || "your address"}
+            <span className="text-stone-800 font-bold max-w-[200px] truncate text-right">
+              {orderDetails?.address || "Provided on WhatsApp"}
             </span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-stone-500 text-sm font-semibold flex items-center gap-1.5">
-              <Phone className="w-3.5 h-3.5 text-orange-500" /> Contact
+
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <span className="text-stone-500 font-semibold flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-[#1E5B3C]" /> Contact
             </span>
-            <span className="text-stone-200 text-sm font-bold">{orderDetails?.phone || "your phone"}</span>
+            <span className="text-stone-800 font-bold">{orderDetails?.phone || "Provided on WhatsApp"}</span>
           </div>
-          <div className="h-px bg-stone-800" />
+
+          <div className="h-px bg-stone-200" />
+
           <div className="flex items-center justify-between">
-            <span className="text-stone-300 font-serif font-black">Estimated Total</span>
-            <span className="text-orange-500 font-black text-lg">
+            <span className="text-stone-700 font-serif font-black text-sm">Estimated Total</span>
+            <span className="text-[#1E5B3C] font-black text-lg">
               {siteConfig.currency}
-              {orderDetails?.total?.toFixed(0) || "0"}
+              {orderDetails?.total ? orderDetails.total.toFixed(0) : "0"}
             </span>
           </div>
         </motion.div>
 
-        {/* Live progress tracker */}
+        {/* Estimated Delivery & Fresh Cooking Notice */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="flex items-center justify-between mb-8"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="bg-[#1E5B3C]/5 border border-[#1E5B3C]/20 rounded-2xl p-4 sm:p-5 mb-6 text-left space-y-3.5 shadow-xs"
         >
-          {orderSteps.map((step, i, arr) => {
-            const isDone = STATUS_ORDER.indexOf(step.key) <= currentStatusIndex;
-            const isActive = STATUS_ORDER.indexOf(step.key) === currentStatusIndex;
-            const Icon = step.Icon;
-            return (
-              <div key={step.key} className="flex items-center">
-                <div className="flex flex-col items-center gap-1">
-                  <motion.div
-                    animate={isActive ? { scale: [1, 1.15, 1] } : {}}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500 ${
-                      isDone
-                        ? "bg-orange-650/10 border border-orange-550/30 shadow-md shadow-orange-950/20"
-                        : "bg-stone-900 border border-stone-800"
-                    }`}
-                  >
-                    <Icon className={`w-4 h-4 transition-colors duration-500 ${isDone ? "text-orange-500" : "text-stone-700"}`} />
-                  </motion.div>
-                  <span className={`text-[10px] font-bold uppercase transition-colors duration-500 ${isDone ? "text-orange-500" : "text-stone-700"}`}>
-                    {step.label}
-                  </span>
-                </div>
-                {i < arr.length - 1 && (
-                  <motion.div
-                    className="w-7 h-0.5 mb-4 mx-1 transition-colors duration-700"
-                    style={{
-                      backgroundColor: STATUS_ORDER.indexOf(arr[i + 1].key) <= currentStatusIndex
-                        ? "rgba(234,88,12,0.4)"
-                        : "rgba(234,88,12,0.06)",
-                    }}
-                  />
-                )}
+          <div className="flex items-center gap-2 text-[#1E5B3C]">
+            <ChefHat className="w-5 h-5 flex-shrink-0" />
+            <h4 className="font-serif font-black text-sm text-[#1E5B3C]">
+              Freshly Cooked to Order Guarantee
+            </h4>
+          </div>
+
+          <p className="text-stone-700 text-xs leading-relaxed font-medium">
+            Because we <strong>do not pre-prepare dishes</strong> and cook everything 100% fresh to order, please note our delivery schedules:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            {/* Fresh Food Card */}
+            <div className="bg-white border border-[#1E5B3C]/25 rounded-xl p-3 flex flex-col justify-between shadow-xs">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-stone-600 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Flame className="w-3.5 h-3.5 text-amber-600" /> Fresh Food
+                </span>
+                <span className="bg-[#1E5B3C]/10 text-[#1E5B3C] text-[10px] font-black px-2 py-0.5 rounded-full">
+                  ~4 Hours
+                </span>
               </div>
-            );
-          })}
+              <p className="text-stone-600 text-[11px] font-medium leading-tight">
+                Cooked fresh from scratch. Please order <strong>3–4 hours before</strong> you expect the food.
+              </p>
+            </div>
+
+            {/* Frozen Food Card */}
+            <div className="bg-white border border-[#A46A3A]/25 rounded-xl p-3 flex flex-col justify-between shadow-xs">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-stone-600 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Snowflake className="w-3.5 h-3.5 text-sky-600" /> Frozen Food
+                </span>
+                <span className="bg-[#A46A3A]/10 text-[#A46A3A] text-[10px] font-black px-2 py-0.5 rounded-full">
+                  ~1 Day
+                </span>
+              </div>
+              <p className="text-stone-600 text-[11px] font-medium leading-tight">
+                Freshly rolled, seasoned & blast-chilled. Delivered within <strong>1 day</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-600/20 rounded-xl p-2.5 text-[11px] text-amber-900">
+            <Clock className="w-3.5 h-3.5 text-amber-700 flex-shrink-0 mt-0.5" />
+            <p className="font-semibold leading-snug">
+              Kindly order <strong>3–4 hours in advance</strong> so our kitchen can prepare your meal with the care and perfection you deserve.
+            </p>
+          </div>
         </motion.div>
 
-        {/* CTA */}
-        <motion.button
-          onClick={resetOrder}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="w-full flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-stone-100 py-4 rounded-2xl font-bold shadow-lg shadow-orange-950/20"
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="space-y-2.5"
         >
-          Explore More Food <ChevronRight className="w-5 h-5" />
-        </motion.button>
+          <a
+            href={directWhatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20b858] text-white py-3.5 rounded-2xl font-bold text-sm shadow-md transition-all cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4" /> Message Kitchen on WhatsApp
+          </a>
+
+          <button
+            onClick={resetOrder}
+            className="w-full flex items-center justify-center gap-2 bg-[#1E5B3C] hover:bg-[#16442c] text-[#F5F1E6] py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-[#1E5B3C]/20 transition-all cursor-pointer"
+          >
+            Explore More Dishes <ChevronRight className="w-4 h-4" />
+          </button>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

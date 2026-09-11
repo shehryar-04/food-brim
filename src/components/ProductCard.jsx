@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Star, Plus, Check, Flame, Package, Users } from "lucide-react";
+import { Star, Plus, Check, Flame, Package, Users, Clock, Snowflake } from "lucide-react";
 import useCartStore from "../store/cartStore";
 import { siteConfig } from "../data/siteConfig";
 
@@ -87,23 +87,32 @@ export default function ProductCard({ item, index }) {
           {item.name}
         </h3>
 
-        {/* Serving Sizes Guide Indicator */}
-        {(item.pack_size || item.serves) && (
-          <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] font-semibold text-stone-600">
-            {item.pack_size && (
-              <span className="inline-flex items-center gap-1.5 bg-stone-100/90 text-stone-700 px-2.5 py-1 rounded-lg">
-                <Package className="w-3.5 h-3.5 text-stone-500" />
-                <span>{item.pack_size}</span>
-              </span>
-            )}
-            {item.serves && (
-              <span className="inline-flex items-center gap-1.5 bg-[#1E5B3C]/10 text-[#1E5B3C] px-2.5 py-1 rounded-lg font-bold">
-                <Users className="w-3.5 h-3.5 text-[#1E5B3C]" />
-                <span>{item.serves}</span>
-              </span>
-            )}
-          </div>
-        )}
+        {/* Serving Sizes & Delivery Guide Indicator */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-3 text-[11px] font-semibold text-stone-600">
+          {item.pack_size && (
+            <span className="inline-flex items-center gap-1 bg-stone-100/90 text-stone-700 px-2 py-0.5 rounded-lg text-[10px]">
+              <Package className="w-3 h-3 text-stone-500" />
+              <span>{item.pack_size}</span>
+            </span>
+          )}
+          {item.serves && (
+            <span className="inline-flex items-center gap-1 bg-[#1E5B3C]/10 text-[#1E5B3C] px-2 py-0.5 rounded-lg font-bold text-[10px]">
+              <Users className="w-3 h-3 text-[#1E5B3C]" />
+              <span>{item.serves}</span>
+            </span>
+          )}
+          {(item.category === "brim_frozen" || item.category_id === "brim_frozen" || item.tags?.includes("Frozen")) ? (
+            <span className="inline-flex items-center gap-1 bg-[#A46A3A]/10 text-[#A46A3A] px-2 py-0.5 rounded-lg font-bold text-[10px]">
+              <Snowflake className="w-3 h-3 text-[#A46A3A]" />
+              <span>1 Day Delivery</span>
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1 bg-[#1E5B3C]/10 text-[#1E5B3C] px-2 py-0.5 rounded-lg font-bold text-[10px]">
+              <Clock className="w-3 h-3 text-[#1E5B3C]" />
+              <span>~4 Hrs (Cooked Fresh)</span>
+            </span>
+          )}
+        </div>
 
         <p className="text-stone-600 text-xs leading-relaxed flex-1 mb-5 line-clamp-2 font-medium">
           {item.description}
